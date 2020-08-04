@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class KotlinrestappApplication
+class KotlinRestappApplication
 
 fun main(args: Array<String>) {
-	runApplication<KotlinrestappApplication>(*args)
+	runApplication<KotlinRestappApplication>(*args)
 }
