@@ -2,11 +2,11 @@ package com.apetrov.kotlinrestapp.model
 
 import java.math.BigDecimal
 import java.time.LocalDate
+import javax.persistence.Entity
 
-data class Doctor(
-        val name:String,
-        val surname:String,
-        val birthday:LocalDate,
-        val salary:BigDecimal
-) : BaseEntity() {
+
+@Entity
+class Doctor(
+        var specialty:String, name: String, surname: String, birthday: LocalDate, salary: BigDecimal
+) : Employee(name, surname, birthday, salary) {
 }
