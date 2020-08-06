@@ -6,6 +6,6 @@ import java.time.LocalDate
 open class Employee (val name:String,
                      val surname:String,
                      val birthday: LocalDate,
-                     val salary: BigDecimal):BaseEntity(){
-
+                     val salary: BigDecimal,
+                    val experienceYears:Int):BaseEntity(){
 }
