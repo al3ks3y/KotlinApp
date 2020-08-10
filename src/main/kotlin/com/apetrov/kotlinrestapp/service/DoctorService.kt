@@ -9,5 +9,5 @@ class DoctorService (val doctorDao: DoctorDao){
     fun getAll():List<Doctor>{
        return doctorDao.findAll()
     }
-    fun addDoctor
+
 }
