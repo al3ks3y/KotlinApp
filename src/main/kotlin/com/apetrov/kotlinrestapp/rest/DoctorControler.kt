@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RestController
 class DoctorControler (val doctorService: DoctorService){
 
     fun getAllDoctors(): List<Doctor> {
-        return doctorService.getAll();
+        return doctorService.getAll()
     }
 }
