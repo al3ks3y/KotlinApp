@@ -1,4 +1,4 @@
-package com.apetrov.kotlinrestapp.model
+package com.apetrov.kotlinrestapp.enums
 
 enum class Degree {
     SPECIALIST,

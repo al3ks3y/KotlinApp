@@ -1,5 +1,6 @@
 package com.apetrov.kotlinrestapp.model
 
+import com.apetrov.kotlinrestapp.enums.Degree
 import lombok.Value
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -10,7 +11,7 @@ import javax.persistence.Table
 @Entity
 @Table
 class Doctor(
-        var specialty:String,
+        var specialization:String,
         var degree: Degree,
         name: String,
         surname: String,

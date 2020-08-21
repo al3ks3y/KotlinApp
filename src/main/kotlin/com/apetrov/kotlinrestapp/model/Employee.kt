@@ -7,5 +7,5 @@ open class Employee (val name:String,
                      val surname:String,
                      val birthday: LocalDate,
                      val salary: BigDecimal,
-                    val experienceYears:Int):BaseEntity(){
+                    val careerStartYear:Int):BaseEntity(){
 }

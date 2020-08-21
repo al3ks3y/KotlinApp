@@ -1,6 +1,6 @@
 package com.apetrov.kotlinrestapp.rest.indto
 
-import com.apetrov.kotlinrestapp.model.Degree
+import com.apetrov.kotlinrestapp.enums.Degree
 import java.math.BigDecimal
 import java.time.LocalDate
 
@@ -9,7 +9,7 @@ data class DoctorInDto(
         val surname:String,
         val birthday:LocalDate,
         val salary:BigDecimal,
-        val experienceYears:Int,
+        val careerStartYear:Int,
         val specialization:String,
         val degree: Degree
 
