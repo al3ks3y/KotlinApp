@@ -27,16 +27,11 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	implementation("org.springframework.kafka:spring-kafka")
-	implementation("io.springfox:springfox-swagger2:2.8.0")
-	implementation("io.springfox:springfox-swagger-ui:2.8.0")
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.postgresql:postgresql")
@@ -45,8 +40,13 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
-	testImplementation("org.springframework.kafka:spring-kafka-test")
+	implementation("io.springfox:springfox-swagger2:2.8.0")
+	implementation("io.springfox:springfox-swagger-ui:2.8.0")
+	testImplementation("junit:junit:4.13")
+	testImplementation("com.h2database:h2:1.4.191")
+	implementation("com.dropbox.core:dropbox-core-sdk:3.1.3")
 }
+
 
 tasks.withType<Test> {
 	useJUnitPlatform()
