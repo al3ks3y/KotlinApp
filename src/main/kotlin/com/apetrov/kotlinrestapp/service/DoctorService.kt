@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service
 @Service
 class DoctorService (val doctorDao: DoctorDao){
     fun getAll():List<DoctorOutDto>{
-       return doctorDao.findAll().map { DoctorOutDto(it) }
+
+       return doctorDao.findAll().map {print(it)
+           DoctorOutDto(it) }
     }
 }
