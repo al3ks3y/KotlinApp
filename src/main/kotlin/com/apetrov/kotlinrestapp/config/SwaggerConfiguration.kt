@@ -1,5 +1,4 @@
-package com.apetrov.kotlinrestapp
-
+package com.apetrov.kotlinrestapp.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -19,7 +18,7 @@ import java.util.*
 class SwaggerConfiguration {
 
     @Bean
-    fun api():Docket = Docket(DocumentationType.SWAGGER_2)
+    open fun api():Docket = Docket(DocumentationType.SWAGGER_2)
             .select()
             .apis(RequestHandlerSelectors.any())
             .paths(PathSelectors.any())
@@ -46,8 +45,8 @@ class SwaggerConfiguration {
 
     private fun apiInfo(): ApiInfo? {
         return ApiInfo(
-                "Pet Clinic project",
-                "This project is a remake/update of the classic Pet Clinic Spring Tutorial",
+                "Petclinic Awesome Project",
+                "",
                 "1.0",
                 "",
                 Contact("Alexey Petrov", "https://t.me/alexey_dev", "lomon2008@yandex.ru"),
