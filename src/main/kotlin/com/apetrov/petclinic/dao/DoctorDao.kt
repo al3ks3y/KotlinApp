@@ -1,6 +1,6 @@
-package com.apetrov.kotlinrestapp.dao
+package com.apetrov.petclinic.dao
 
-import com.apetrov.kotlinrestapp.model.Doctor
+import com.apetrov.petclinic.model.Doctor
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface DoctorDao :JpaRepository<Doctor, Long> {

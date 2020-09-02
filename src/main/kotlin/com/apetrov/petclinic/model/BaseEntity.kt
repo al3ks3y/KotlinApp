@@ -1,4 +1,4 @@
-package com.apetrov.kotlinrestapp.model
+package com.apetrov.petclinic.model
 
 import java.io.Serializable
 import javax.persistence.GeneratedValue
@@ -11,7 +11,7 @@ open class BaseEntity : Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    open var id: Int? = null
+    open var id: Long? = null
 
     val isNew: Boolean
         get() = this.id == null

@@ -1,6 +1,5 @@
-package com.apetrov.kotlinrestapp.config
+package com.apetrov.petclinic.config
 
-import org.springframework.context.annotation.Configuration
 /*
 @Configuration
 @EnableWebSecurity
