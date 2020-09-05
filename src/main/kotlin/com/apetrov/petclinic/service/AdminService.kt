@@ -1,5 +1,6 @@
 package com.apetrov.petclinic.service
 
+import com.apetrov.petclinic.dao.BranchDao
 import com.apetrov.petclinic.dao.ClientDao
 import com.apetrov.petclinic.dao.DoctorDao
 import com.apetrov.petclinic.dao.ReceptionDao
@@ -7,6 +8,7 @@ import com.apetrov.petclinic.enums.Position
 import com.apetrov.petclinic.model.Client
 import com.apetrov.petclinic.model.Doctor
 import com.apetrov.petclinic.model.Reception
+import com.apetrov.petclinic.model.Branch
 import com.apetrov.petclinic.rest.indto.DoctorInDto
 import org.joda.time.DateTimeConstants
 import org.joda.time.LocalDate
@@ -18,7 +20,8 @@ import javax.transaction.Transactional
 
 
 @Service
-class AdminService(val doctorDao: DoctorDao, val clientDao: ClientDao, val receptionDao: ReceptionDao) {
+class AdminService(val doctorDao: DoctorDao, val clientDao: ClientDao, val receptionDao: ReceptionDao,
+                   val branchDao: BranchDao) {
     @Transactional
     fun addDoctor(dto: DoctorInDto) {
         val doctor = Doctor(
@@ -29,13 +32,18 @@ class AdminService(val doctorDao: DoctorDao, val clientDao: ClientDao, val recep
                 dto.birthday,
                 dto.salary,
                 dto.careerStartYear,
-                dto.photoUrl
+                dto.photoUrl,
+                //TODO сделать добавление отделения
+                branchDao.findAll().stream().findAny().get()
         )
         doctorDao.save(doctor)
     }
 
     @Transactional
-    fun initDoctors() {
+    fun initDoctorsAndUnits() {
+        val therapyBranch=Branch("Терапия")
+        val surgeonBranch=Branch("Хирургия")
+        val reanimationBranch=Branch("Реанимация")
         val doctor = Doctor(
                 "Зоопсихолог",
                 Position.LEAD_SPECIALIST,
@@ -44,7 +52,8 @@ class AdminService(val doctorDao: DoctorDao, val clientDao: ClientDao, val recep
                 LocalDate(1985, 10, 5),
                 BigDecimal(80000),
                 2010,
-                "https://intalent.pro/sites/default/files/styles/new_photo_in_article/public/foto/article/1_14.jpg"
+                "https://intalent.pro/sites/default/files/styles/new_photo_in_article/public/foto/article/1_14.jpg",
+                therapyBranch
         )
         val doctor2 = Doctor(
                 "Ветеринар-кинолог",
@@ -54,7 +63,8 @@ class AdminService(val doctorDao: DoctorDao, val clientDao: ClientDao, val recep
                 LocalDate(1987, 5, 1),
                 BigDecimal(60000),
                 2015,
-                "https://www.asi.org.ru/wp-content/uploads/2019/10/6q_mEYpRZb4.jpg"
+                "https://www.asi.org.ru/wp-content/uploads/2019/10/6q_mEYpRZb4.jpg",
+                therapyBranch
         )
         val doctor3 = Doctor(
                 "Ветеринар-кардиолог",
@@ -64,7 +74,8 @@ class AdminService(val doctorDao: DoctorDao, val clientDao: ClientDao, val recep
                 LocalDate(1991, 1, 1),
                 BigDecimal(90000),
                 2011,
-                "https://276709.selcdn.ru/proektoria/new/professions/2020/03/24/3644a684f98ea8fe223c713b77189a77/2019-12-08_13-14-23.jpg"
+                "https://276709.selcdn.ru/proektoria/new/professions/2020/03/24/3644a684f98ea8fe223c713b77189a77/2019-12-08_13-14-23.jpg",
+                surgeonBranch
         )
         val doctor4 = Doctor(
                 "Ветеринар-ипполог",
@@ -74,7 +85,8 @@ class AdminService(val doctorDao: DoctorDao, val clientDao: ClientDao, val recep
                 LocalDate(1981, 5, 1),
                 BigDecimal(140000),
                 2005,
-                "http://1uilim.e-stile.ru/images/loshad4.jpg"
+                "http://1uilim.e-stile.ru/images/loshad4.jpg",
+                therapyBranch
         )
         val doctor5 = Doctor(
                 "Ветеринар-фелинолог",
@@ -84,7 +96,8 @@ class AdminService(val doctorDao: DoctorDao, val clientDao: ClientDao, val recep
                 LocalDate(1967,1,1),
                 BigDecimal(190000),
                 1985,
-                "https://cdn21.img.ria.ru/images/155238/17/1552381746_105:0:2836:2048_1400x0_80_0_0_30c2fa165bcd37f0ea7164b249c2f21d.jpg"
+                "https://cdn21.img.ria.ru/images/155238/17/1552381746_105:0:2836:2048_1400x0_80_0_0_30c2fa165bcd37f0ea7164b249c2f21d.jpg",
+                therapyBranch
         )
         val doctor6= Doctor(
             "Ветеринар-орнитолог",
@@ -94,9 +107,32 @@ class AdminService(val doctorDao: DoctorDao, val clientDao: ClientDao, val recep
                 LocalDate(1950,10,5),
                 BigDecimal(200000),
                 1978,
-                "https://www.pervo.ru/uploads/posts/2017-09/1504610691_pervoru-2118.jpg"
+                "https://www.pervo.ru/uploads/posts/2017-09/1504610691_pervoru-2118.jpg",
+                surgeonBranch
         )
-        doctorDao.saveAll(arrayListOf(doctor, doctor2, doctor3, doctor4, doctor5, doctor6))
+        val doctor7=Doctor(
+                "Ветеринар-реаниматолог",
+                Position.HEAD_OF_UNIT,
+                "Аркадий",
+                "Кукушкин",
+                LocalDate(1983,10,5),
+                BigDecimal(190000),
+                2004,
+                "https://www.biocontrol.ru/wp-content/uploads/2008/05/Захаров-Егор-Владимирович.jpg",
+                reanimationBranch
+        )
+        val doctor8=Doctor(
+                "Ветеринар-реаниматолог",
+                Position.SENIOR_SPECIALIST,
+                "Елена",
+                "Никулина",
+                LocalDate(1990,10,5),
+                BigDecimal(100000),
+                2014,
+                "https://shop-cdn1.vigbo.tech/shops/6858/products/215784/images/3-df1f61f2d6629401198e0a6020d9096c.jpg",
+                reanimationBranch
+        )
+        doctorDao.saveAll(arrayListOf(doctor, doctor2, doctor3, doctor4, doctor5, doctor6, doctor7,doctor8))
     }
 
     @Transactional

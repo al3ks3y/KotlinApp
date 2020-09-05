@@ -8,7 +8,7 @@ class InitService (val adminService: AdminService){
 
     @PostConstruct
     fun init(){
-        adminService.initDoctors()
+        adminService.initDoctorsAndUnits()
         adminService.initClients()
         adminService.initSchedule()
     }

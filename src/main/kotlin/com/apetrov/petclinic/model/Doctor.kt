@@ -20,6 +20,9 @@ class Doctor(
         var salary: BigDecimal,
         var careerStartYear:Int,
         var photoUrl:String,
-        @OneToMany(cascade = arrayOf(CascadeType.ALL))
+        @ManyToOne(cascade = [CascadeType.ALL])
+        var branch: Branch,
+        @OneToMany(cascade = [CascadeType.ALL])
         var receptions:MutableList<Reception> = arrayListOf()
+
 ):BaseEntity()
