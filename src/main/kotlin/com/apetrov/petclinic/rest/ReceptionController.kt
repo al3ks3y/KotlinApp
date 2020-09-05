@@ -24,4 +24,10 @@ class ReceptionController(val receptionService: ReceptionService) {
                             @DateTimeFormat(pattern = "yyyy-MM-dd") date: LocalDate): ReceptionDayOutDto?{
         return receptionService.getDoctorsReceptionsByDate(date ,doctorId )
     }
+    @Deprecated("На время пока нет личного кабинета клиента")
+    @ApiOperation("Зарезервировать запись (может понадобиться для тестирования")
+    @PutMapping("/{receptionId}")
+    fun setOcupiedByRandomClient(@PathVariable("receptionId") receptionId:Long){
+        receptionService.setOcupiedByRandomClient(receptionId)
+    }
 }

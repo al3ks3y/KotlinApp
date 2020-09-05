@@ -33,8 +33,7 @@ class AdminService(val doctorDao: DoctorDao, val clientDao: ClientDao, val recep
                 dto.salary,
                 dto.careerStartYear,
                 dto.photoUrl,
-                //TODO сделать добавление отделения
-                branchDao.findAll().stream().findAny().get()
+                branchDao.findById(dto.branchId?:(1L)).get()
         )
         doctorDao.save(doctor)
     }
@@ -162,13 +161,13 @@ class AdminService(val doctorDao: DoctorDao, val clientDao: ClientDao, val recep
     private fun createReceptions(doctors: MutableList<Doctor>, clients: MutableList<Client>){
         val now = LocalDate()
         var currentDay: LocalDate = now.withDayOfWeek(DateTimeConstants.MONDAY)
-        val endOfThePeriod = currentDay.plusDays(14)
+        val endOfThePeriod = currentDay.plusDays(28)
         while (currentDay.isBefore(endOfThePeriod)) {
             var curentTime = currentDay.toLocalDateTime(LocalTime(9, 0))
             while (curentTime.isBefore(currentDay.toLocalDateTime(LocalTime(20, 50)))) {
                 val endtime = curentTime.plusMinutes(30)
                 doctors.forEach {
-                    val occupied = Random().nextInt(10) > 6
+                    val occupied = Random().nextInt(10) > 4
                     if (occupied) {
                         it.receptions.add(
                                 Reception(curentTime, endtime, it,

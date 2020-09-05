@@ -14,7 +14,8 @@ data class DoctorInDto(
         val careerStartYear:Int,
         val specialization:String,
         val position: Position,
-        val photoUrl: String
+        val photoUrl: String,
+        var branchId:Long?
 
 ) {
 }
