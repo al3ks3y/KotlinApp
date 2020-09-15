@@ -10,18 +10,19 @@ import com.apetrov.petclinic.model.Doctor
 import com.apetrov.petclinic.model.Reception
 import com.apetrov.petclinic.model.Branch
 import com.apetrov.petclinic.rest.indto.DoctorInDto
-import org.joda.time.DateTimeConstants
-import org.joda.time.LocalDate
-import org.joda.time.LocalTime
+import org.joda.time.*
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.util.*
+import javax.annotation.PostConstruct
 import javax.transaction.Transactional
 
 
 @Service
 class AdminService(val doctorDao: DoctorDao, val clientDao: ClientDao, val receptionDao: ReceptionDao,
                    val branchDao: BranchDao) {
+    private lateinit var startTime: LocalDateTime
+
     @Transactional
     fun addDoctor(dto: DoctorInDto) {
         val doctor = Doctor(
@@ -156,6 +157,13 @@ class AdminService(val doctorDao: DoctorDao, val clientDao: ClientDao, val recep
         val doctors = doctorDao.findAll()
         val clients = clientDao.findAll()
         createReceptions(doctors, clients)
+    }
+    fun initStartTime(){
+        startTime= LocalDateTime.now()
+    }
+    fun getUptime():String{
+        val hoursUp= Days.daysBetween(LocalDateTime.now(), startTime).toStandardHours().hours
+        return String.format("Сервер в сети уже %s дней, %s часов,\nЗапущен: %s", hoursUp/24, hoursUp%24, startTime)
     }
 
     private fun createReceptions(doctors: MutableList<Doctor>, clients: MutableList<Client>){
