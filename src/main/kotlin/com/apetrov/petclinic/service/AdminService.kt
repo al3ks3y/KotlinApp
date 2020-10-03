@@ -11,7 +11,9 @@ import com.apetrov.petclinic.model.Reception
 import com.apetrov.petclinic.model.Branch
 import com.apetrov.petclinic.rest.indto.DoctorInDto
 import org.joda.time.*
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.util.Base64Utils
 import java.math.BigDecimal
 import java.util.*
 import javax.annotation.PostConstruct
@@ -20,7 +22,7 @@ import javax.transaction.Transactional
 
 @Service
 class AdminService(val doctorDao: DoctorDao, val clientDao: ClientDao, val receptionDao: ReceptionDao,
-                   val branchDao: BranchDao) {
+                   val branchDao: BranchDao, val passwordEncoder: BCryptPasswordEncoder) {
     private lateinit var startTime: LocalDateTime
 
     @Transactional
@@ -139,15 +141,21 @@ class AdminService(val doctorDao: DoctorDao, val clientDao: ClientDao, val recep
     fun initClients() {
         val client = Client(
                 "Максим",
-                "Петухов"
+                "Петухов",
+                "9007005031",
+                passwordEncoder.encode("1")
         )
         val client2 = Client(
                 "Антон",
-                "Феофанов"
+                "Феофанов",
+                "9007005032",
+                passwordEncoder.encode("1")
         )
         val client3 = Client(
                 "Эльвира",
-                "Мкртчан"
+                "Мкртчан",
+                "9007005033",
+                passwordEncoder.encode("1")
         )
         clientDao.saveAll(arrayListOf(client, client2, client3))
     }
@@ -162,8 +170,10 @@ class AdminService(val doctorDao: DoctorDao, val clientDao: ClientDao, val recep
         startTime= LocalDateTime.now()
     }
     fun getUptime():String{
-        val hoursUp= Days.daysBetween(LocalDateTime.now(), startTime).toStandardHours().hours
-        return String.format("Сервер в сети уже %s дней, %s часов,\nЗапущен: %s", hoursUp/24, hoursUp%24, startTime)
+        val minutesUp= Minutes.minutesBetween(startTime,LocalDateTime.now()).minutes
+        val days=minutesUp/24/60
+        val hours=minutesUp-(days*24*60)
+        return String.format("Сервер в сети уже %s дней, %s часов, %s минут,\nЗапущен: %s", days, hours, minutesUp, startTime)
     }
 
     private fun createReceptions(doctors: MutableList<Doctor>, clients: MutableList<Client>){

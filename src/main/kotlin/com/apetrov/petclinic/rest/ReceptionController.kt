@@ -2,6 +2,7 @@ package com.apetrov.petclinic.rest
 
 import com.apetrov.petclinic.rest.outdto.ReceptionDayOutDto
 import com.apetrov.petclinic.service.ReceptionService
+import com.apetrov.petclinic.util.RECEPTION_API_PREFIX
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
 import org.joda.time.LocalDate
@@ -9,7 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/reception")
+@RequestMapping(RECEPTION_API_PREFIX)
 class ReceptionController(val receptionService: ReceptionService) {
     @ApiOperation("Получить информацию по всем дням приема врача")
     @GetMapping("/{doctorId}/schedule")

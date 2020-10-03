@@ -6,6 +6,7 @@ import com.apetrov.petclinic.rest.outdto.DoctorOutDto
 import com.apetrov.petclinic.rest.outdto.ReceptionDayOutDto
 import com.apetrov.petclinic.rest.outdto.ReceptionOutDto
 import com.apetrov.petclinic.service.DoctorService
+import com.apetrov.petclinic.util.DOCTOR_API_PREFIX
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
 import org.joda.time.LocalDate
@@ -13,7 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/doctor")
+@RequestMapping(DOCTOR_API_PREFIX)
 class DoctorController (val doctorService: DoctorService){
     @ApiOperation("Получить список всех врачей в базе")
     @GetMapping

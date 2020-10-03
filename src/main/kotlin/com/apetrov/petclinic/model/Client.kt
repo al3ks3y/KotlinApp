@@ -14,6 +14,8 @@ import javax.persistence.Table
 class Client (
         var name: String,
         var surname: String,
+        var phone:String,
+        var password:String,
         @OneToMany(cascade = arrayOf(CascadeType.ALL))
         var receptions:MutableList<Reception> = arrayListOf()
 ):BaseEntity()

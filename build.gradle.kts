@@ -46,6 +46,7 @@ dependencies {
 	testImplementation("com.h2database:h2:1.4.191")
 	implementation( "joda-time:joda-time:2.10.6")
 	implementation("com.fasterxml.jackson.datatype:jackson-datatype-joda:2.1.1")
+	implementation ("org.springframework.boot:spring-boot-starter-security")
 }
 
 
