@@ -14,7 +14,7 @@ class ServiceController (val adminService: AdminService){
     fun addDoctor(@RequestBody doctorInDto: DoctorInDto){
         adminService.addDoctor(doctorInDto)
     }
-    @ApiOperation("Получить аптайм в днях (целых)")
+    @ApiOperation("Получить аптайм и системные данные JVM")
     @GetMapping("/uptime")
     fun getUptime() :String{
        return adminService.getUptime()
