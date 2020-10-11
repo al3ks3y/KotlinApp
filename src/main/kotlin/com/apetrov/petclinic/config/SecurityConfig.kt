@@ -27,6 +27,8 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
                 .and()
                     .logout()
                     .permitAll()
+                .and()
+                    .csrf().disable()
     }
 
     @Throws(java.lang.Exception::class)
