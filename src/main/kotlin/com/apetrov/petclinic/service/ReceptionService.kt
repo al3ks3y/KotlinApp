@@ -23,10 +23,10 @@ class ReceptionService (val doctorDao: DoctorDao, val receptionDao: ReceptionDao
         return getReceptionsByDoc(doctorId).filter { it.date.equals(date) }.get(0)
     }
     @Transactional
-    fun setOcupiedByRandomClient(receptionId:Long){
-        var reception=receptionDao.findById(receptionId).orElseThrow({ NullPointerException("Доктор с данным ID не найден") })
-        val client=clientDao.findAll().stream().findAny().get()
-        reception.client=client
+    fun setOcupiedByRandomClient(receptionId: Long){
+        val reception = receptionDao.findById(receptionId).orElseThrow({ NullPointerException("Доктор с данным ID не найден") })
+        val client = clientDao.findAll().stream().findAny().get()
+        reception.client = client
         receptionDao.save(reception)
 
     }
@@ -34,12 +34,11 @@ class ReceptionService (val doctorDao: DoctorDao, val receptionDao: ReceptionDao
         val doctorOptional=doctorDao.findById(doctorId)
         val doctor=doctorOptional.orElseThrow({ NullPointerException("Доктор с данным ID не найден") })
         val receptionDayOutDtos= hashMapOf<LocalDate,ReceptionDayOutDto>()
-        receptionDao.findByDoctor(doctor).forEach {
+        receptionDao.findByDoctorOrderById(doctor).forEach {
             val receptionDayOutDto = receptionDayOutDtos.get(it.beginTime.toLocalDate())
-            if(receptionDayOutDto!=null){
+            if (receptionDayOutDto != null) {
                 receptionDayOutDto.receptions.add(ReceptionOutDto(it))
-            }
-            else{
+            } else {
                 receptionDayOutDtos.put(it.beginTime.toLocalDate(),
                         ReceptionDayOutDto(DoctorOutDto(doctor), it.beginTime.toLocalDate(), mutableListOf(ReceptionOutDto(it))))
 
