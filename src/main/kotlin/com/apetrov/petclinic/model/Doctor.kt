@@ -12,17 +12,19 @@ import javax.persistence.*
 @Table
 @ToString
 class Doctor(
-        var specialization:String,
+        var specialization: String,
         var position: Position,
         var name: String,
         var surname: String,
         var birthday: LocalDate,
         var salary: BigDecimal,
-        var careerStartYear:Int,
-        var photoUrl:String,
+        var careerStartYear: Int,
+        var photoUrl: String,
         @ManyToOne(cascade = [CascadeType.ALL])
+        @JoinColumn(name = "branchId")
         var branch: Branch,
         @OneToMany(cascade = [CascadeType.ALL])
-        var receptions:MutableList<Reception> = arrayListOf()
+        @JoinColumn(name = "doctorId")
+        var receptions: MutableList<Reception> = arrayListOf()
 
 ):BaseEntity()

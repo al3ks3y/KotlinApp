@@ -160,13 +160,25 @@ class AdminService(val doctorDao: DoctorDao, val clientDao: ClientDao, val recep
     }
 
     @Transactional
+    fun initTestClient() {
+        val client = Client(
+                "Тест",
+                "Тестов",
+                "7777777777",
+                passwordEncoder.encode("1111")
+        )
+        clientDao.save(client)
+    }
+
+    @Transactional
     fun initSchedule() {
         val doctors = doctorDao.findAll()
         val clients = clientDao.findAll()
         createReceptions(doctors, clients)
     }
-    fun initStartTime(){
-        startTime= LocalDateTime.now()
+
+    fun initStartTime() {
+        startTime = LocalDateTime.now()
     }
     fun getUptime():String{
         val minutesUp= Minutes.minutesBetween(startTime, LocalDateTime.now()).minutes

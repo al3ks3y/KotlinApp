@@ -8,8 +8,9 @@ import javax.persistence.*
 @Entity
 @Table
 @ToString
-class Branch (
-        var name:String,
+class Branch(
+        var name: String,
         @OneToMany(cascade = [CascadeType.ALL])
-        var doctors:MutableList<Doctor> = arrayListOf()
+        @JoinColumn(name = "branchId")
+        var doctors: MutableList<Doctor> = arrayListOf()
 ):BaseEntity()

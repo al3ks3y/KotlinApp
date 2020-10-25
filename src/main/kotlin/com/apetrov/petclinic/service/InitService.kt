@@ -12,5 +12,6 @@ class InitService (val adminService: AdminService){
         adminService.initClients()
         adminService.initSchedule()
         adminService.initStartTime()
+        adminService.initTestClient()
     }
 }

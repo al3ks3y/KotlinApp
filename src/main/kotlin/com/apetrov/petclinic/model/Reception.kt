@@ -10,11 +10,13 @@ import javax.persistence.*
 @Entity
 @Table
 @ToString
-class Reception (
+class Reception(
         var beginTime: LocalDateTime,
-        var endTime:LocalDateTime,
+        var endTime: LocalDateTime,
         @ManyToOne(cascade = arrayOf(CascadeType.ALL))
-        var doctor: Doctor?=null,
+        @JoinColumn(name = "doctorId")
+        var doctor: Doctor? = null,
         @ManyToOne(cascade = arrayOf(CascadeType.ALL))
-        var client:Client?=null
+        @JoinColumn(name = "clientId")
+        var client: Client? = null
 ):BaseEntity()
